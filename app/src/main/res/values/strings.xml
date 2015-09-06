@@ -2,5 +2,11 @@
     <string name="app_name">ReadProgress</string>
 
     <string name="hello_world">Hello world!</string>
+    <string name="menu_refresh">Refresh</string>
+    <string name="menu_search">Search</string>
+    <string name="menu_setting">Setting</string>
+    <string name="search">搜索</string>
+    <string name="view">书单</string>
     <string name="action_settings">Settings</string>
+
 </resources>
