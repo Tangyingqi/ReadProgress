@@ -6,7 +6,7 @@
     <string name="menu_search">Search</string>
     <string name="menu_setting">Setting</string>
     <string name="search">搜索</string>
-    <string name="view">书单</string>
+    <string name="view">正在看</string>
     <string name="action_settings">Settings</string>
 
 </resources>

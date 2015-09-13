@@ -40,7 +40,14 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this,SearchAcitvity.class);
-                startActivityForResult(intent,100);
+                startActivity(intent);
+            }
+        });
+        rl_view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this,ViewActivity.class);
+                startActivity(intent);
             }
         });
     }

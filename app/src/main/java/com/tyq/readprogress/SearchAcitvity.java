@@ -1,12 +1,17 @@
 package com.tyq.readprogress;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.ContentValues;
+import android.content.DialogInterface;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -37,6 +42,9 @@ public class SearchAcitvity extends Activity {
     private RelativeLayout btn_search;
     private List<Book> mBooks = new ArrayList<Book>();
     private SearchAdapter mAdapter;
+    private DB db;
+    private SQLiteDatabase dbWrite;
+    private int mItem;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +53,28 @@ public class SearchAcitvity extends Activity {
         et_search = (EditText) findViewById(R.id.et_search_content);
         btn_search = (RelativeLayout) findViewById(R.id.rl_search_btn);
         listView = (ListView) findViewById(R.id.lv_search);
+        db = new DB(SearchAcitvity.this);
+        dbWrite = db.getWritableDatabase();
+
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                mItem = i;
+                new AlertDialog.Builder(SearchAcitvity.this).setTitle("提醒").setMessage("添加到在读").setNegativeButton("取消",null)
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                //点击确定后，添加到数据库。
+                                ContentValues cv = new ContentValues();
+                                cv.put("title",mBooks.get(mItem).getTitle());
+                                cv.put("page",mBooks.get(mItem).getPage());
+                                dbWrite.insert("book",null,cv);
+                                Toast.makeText(SearchAcitvity.this,"已添加",Toast.LENGTH_SHORT).show();
+                            }
+                        }).show();
+            }
+        });
 
 
         btn_search.setOnClickListener(new View.OnClickListener() {
@@ -99,13 +129,14 @@ public class SearchAcitvity extends Activity {
 
                     try {
                         Book mBook = new Book();
-                        mBook.setTitle(jsonbooks.optJSONObject(i).getString("title"));
+                        mBook.setTitle(jsonbooks.optJSONObject(i).optString("title"));
                         String author = "";
                         for (int j=0;j<jsonbooks.optJSONObject(i).optJSONArray("author").length();j++){
                             author = author + " " +jsonbooks.optJSONObject(i).optJSONArray("author").optString(j);
                         }
                         mBook.setAuthor(author);
                         mBook.setBitmap(jsonbooks.optJSONObject(i).getString("image"));
+                        mBook.setPage(jsonbooks.optJSONObject(i).optString("pages"));
                         mBooks.add(mBook);
                     } catch (Exception e) {
                         e.printStackTrace();

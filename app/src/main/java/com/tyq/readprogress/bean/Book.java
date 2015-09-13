@@ -9,9 +9,18 @@ public class Book {
     private String Title;
     private String Author;
     private String Bitmap;
+    private String page;
 
     private String Url;
 
+
+    public void setPage(String page) {
+        this.page = page;
+    }
+
+    public String getPage() {
+        return page;
+    }
 
     public String getTitle() {
         return Title;

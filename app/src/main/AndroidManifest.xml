@@ -6,10 +6,11 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
+        android:theme="@style/CustomActionBarTheme" >
 
         <activity
             android:name=".MainActivity"
+            android:theme="@style/TransparentTheme"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,7 +19,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".SearchAcitvity"
+            android:theme="@style/CustomActionBarThemeBack"
+            android:label="搜索图书"
             />
+        <activity android:name=".ViewActivity"
+            android:theme="@style/CustomActionBarThemeBack"
+            android:label="在读"/>
     </application>
 
 </manifest>
