@@ -1,27 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <LinearLayout
+    xmlns:ripple="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_search"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <EditText
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:singleLine="true"
-            android:id="@+id/search_edittext"/>
-        <Button
+        android:layout_height="50dp"
+        android:background="@color/actionbar">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_toLeftOf="@+id/rl_search_btn"
+            android:background="@drawable/corners">
+
+            <ImageView
+                android:id="@+id/iv_search_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/search_black" />
+
+            <EditText
+                android:id="@+id/et_search_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/iv_search_icon"
+                android:background="@null"
+                android:hint="请输入书名"
+                android:singleLine="true" />
+        </RelativeLayout>
+
+        <com.tyq.readprogress.RippleView
+            android:id="@+id/rl_search_btn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/search"
-            android:id="@+id/search_button"/>
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:visibility="gone"
+            ripple:rv_centered="true">
+            <TextView
+                android:layout_width="56dp"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="@color/actionbar"
+                android:text="@string/search"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
 
-    </LinearLayout>
+        </com.tyq.readprogress.RippleView>
 
-    <ListView
-        android:id="@+id/search_list"
+
+
+
+    </RelativeLayout>
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></ListView>
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/lv_search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@null"/>
+
+
+    </RelativeLayout>
+
 </LinearLayout>
