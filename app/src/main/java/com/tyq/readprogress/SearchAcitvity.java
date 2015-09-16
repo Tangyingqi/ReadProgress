@@ -110,21 +110,14 @@ public class SearchAcitvity extends Activity {
             }
         });
 
-
-
         mAdapter = new SearchAdapter(mBooks,this);
         listView.setAdapter(mAdapter);
-
-
     }
-
-
 
     public void getRequestData(String str){
         RequestParams params = new RequestParams();
         params.put("q",str.trim());
         BaseAsyncHttp.getReq("/v2/book/search", params, new HttpResponseHandler() {
-
             @Override
             public void jsonSuccess(JSONObject resp)  {
                 mBooks.clear();
@@ -176,7 +169,6 @@ public class SearchAcitvity extends Activity {
                 finish();
                 break;
         }
-
         return true;
     }
 }

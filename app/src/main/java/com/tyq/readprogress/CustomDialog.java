@@ -28,6 +28,7 @@ public class CustomDialog extends Dialog {
         super.setContentView(mView);
 
         Window dialogWindow = this.getWindow();
+
         WindowManager.LayoutParams lp = dialogWindow.getAttributes();
         lp.width = 700;
         lp.height = 500;

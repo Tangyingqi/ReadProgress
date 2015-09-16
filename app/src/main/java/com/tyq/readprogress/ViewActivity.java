@@ -36,15 +36,11 @@ public class ViewActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_activity);
-
         db = new DB(ViewActivity.this);
         dbRead = db.getReadableDatabase();
         dbWrite = db.getWritableDatabase();
         Cursor cursor = dbRead.query("book",null,null,null,null,null,null);
         adapter = new BookListAdapter(this,R.layout.book_list_cell,cursor,new String[]{"title","page","percent"},new int[]{R.id.tv_title,R.id.tv_page,R.id.tv_percent});
-      //  adapter = new BookListAdapter(this,cursor);
-       // TextView textView = (TextView) adapter.getPercent();
-       // textView.setText("dsa");
         view_list = (ListView) findViewById(R.id.view_list);
         view_list.setAdapter(adapter);
         refreshView();
@@ -90,40 +86,32 @@ public class ViewActivity extends Activity {
                 });
 
 
-
                 dialog.getPosBtn().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
 
-                        if (editText != null) {
+                        if (!editText.getText().toString().equals("") ) {
                                int currentPage = Integer.parseInt(editText.getText().toString());
                              int percent = (int)(((double)currentPage/page)*100);
                             ContentValues cv = new ContentValues();
                             cv.clear();
                             cv.put("percent", percent);
                             cv.put("cpage",currentPage);
-//                            dbWrite.insert("book",null,cv);
                             dbWrite.update("book", cv, "_id=?", new String[]{ID+""});
 
                             refreshView();
                             dialog.dismiss();
 
-                            //  Log.i("tyq", percent + " ");
-                            }
-
+                            }else{
+                            dialog.dismiss();
+                        }
                         }
                     }
-
-                    );
+                );
                     dialog.show();
-
-
                 }
             });
-
-
     }
-
 
     public void refreshView(){
         Cursor cursor = dbRead.query("book",null,null,null,null,null,null);
@@ -154,7 +142,6 @@ public class ViewActivity extends Activity {
                 finish();
                 break;
         }
-
         return true;
     }
 }
