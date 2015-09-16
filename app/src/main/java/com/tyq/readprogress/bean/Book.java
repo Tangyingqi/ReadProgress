@@ -10,9 +10,17 @@ public class Book {
     private String Author;
     private String Bitmap;
     private String page;
+    private String percent;
 
     private String Url;
 
+    public String getPercent() {
+        return percent;
+    }
+
+    public void setPercent(String percent) {
+        this.percent = percent;
+    }
 
     public void setPage(String page) {
         this.page = page;

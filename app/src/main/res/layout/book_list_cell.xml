@@ -4,33 +4,49 @@
     android:layout_height="100dp">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="70dp"
         android:orientation="horizontal">
         <TextView
             android:layout_width="0dp"
-            android:layout_weight="4"
+            android:layout_weight="5"
             android:layout_height="wrap_content"
             android:text="百年孤独"
             android:textSize="20sp"
             android:layout_gravity="center_vertical"
             android:paddingLeft="15dp"
             android:id="@+id/tv_title"/>
-
         <TextView
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:id="@+id/tv_percent"
             android:layout_gravity="center_vertical"
-            android:textSize="15sp"
-            android:text="50%"/>
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_page"
+            android:textSize="20sp"
+            android:text="0"/>
+    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal">
+
+            <ProgressBar
+                android:layout_width="0dp"
+                android:layout_weight="6"
+                android:paddingLeft="4dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/progress"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_percent"
+                android:textSize="15sp"
+                android:text="0%"/>
+
 
     </LinearLayout>
 
-    <ProgressBar
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/progressBar"
-       />
+
 </LinearLayout>

@@ -4,7 +4,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/book_icon"
         android:label="@string/app_name"
         android:theme="@style/CustomActionBarTheme" >
 
@@ -23,6 +23,9 @@
             android:label="搜索图书"
             />
         <activity android:name=".ViewActivity"
+            android:theme="@style/CustomActionBarThemeBack"
+            android:label="在读"/>
+        <activity android:name=".AboutActivity"
             android:theme="@style/CustomActionBarThemeBack"
             android:label="在读"/>
     </application>

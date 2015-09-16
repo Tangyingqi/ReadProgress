@@ -3,6 +3,7 @@ package com.tyq.readprogress;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -16,6 +17,10 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.tyq.readprogress.Adapter.BookListAdapter;
+import com.tyq.readprogress.bean.Book;
 
 /**
  * Created by tyq on 2015/9/13.
@@ -25,23 +30,26 @@ public class ViewActivity extends Activity {
     private ListView view_list;
     private DB db;
     private SQLiteDatabase dbRead,dbWrite;
-    private SimpleCursorAdapter adapter;
+    private BookListAdapter adapter;
     private CustomDialog dialog;
-    private TextView tv_percent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_activity);
-        tv_percent = (TextView) findViewById(R.id.tv_percent);
+
         db = new DB(ViewActivity.this);
         dbRead = db.getReadableDatabase();
         dbWrite = db.getWritableDatabase();
-        adapter = new SimpleCursorAdapter(this,R.layout.book_list_cell,null,new String[]{"title"},new int[]{R.id.tv_title});
+        Cursor cursor = dbRead.query("book",null,null,null,null,null,null);
+        adapter = new BookListAdapter(this,R.layout.book_list_cell,cursor,new String[]{"title","page","percent"},new int[]{R.id.tv_title,R.id.tv_page,R.id.tv_percent});
+      //  adapter = new BookListAdapter(this,cursor);
+       // TextView textView = (TextView) adapter.getPercent();
+       // textView.setText("dsa");
         view_list = (ListView) findViewById(R.id.view_list);
         view_list.setAdapter(adapter);
         refreshView();
 
-
+        //长按删除
         view_list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -61,39 +69,61 @@ public class ViewActivity extends Activity {
             }
         });
 
+        //点击弹出对话框
         view_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemClick(final AdapterView<?> adapterView, View view, int i, long l) {
                 dialog = new CustomDialog(ViewActivity.this);
-                final EditText editText = (EditText) dialog.getEditText();
-                Cursor c = adapter.getCursor();
-                int page = c.getInt(c.getColumnIndex("page"));
-                Log.i("tyq",page+" ");
-//                dialog.setOnPositiveListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-////                        tv_percent.setText(editText.getText());
-//                        dialog.dismiss();
-//                    }
-//                });
+                 final EditText editText = (EditText) dialog.getEditText();
+                 Cursor c = adapter.getCursor();
+
+                 final int page = c.getInt(c.getColumnIndex("page"));
+                   final int ID = c.getInt(c.getColumnIndex("_id"));
+
+                dialog.setTitle("页码");
+
                 dialog.getNegBtn().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-//                        dialog.dismiss();
+                        dialog.dismiss();
                     }
                 });
-//                dialog.setOnNegativeListener(new View.OnClickListener() {
-//
-//            public void onClick(View view) {
-//                dialog.dismiss();
-//            }
-//        });
-        dialog.show();
-    }
-});
+
+
+
+                dialog.getPosBtn().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        if (editText != null) {
+                               int currentPage = Integer.parseInt(editText.getText().toString());
+                             int percent = (int)(((double)currentPage/page)*100);
+                            ContentValues cv = new ContentValues();
+                            cv.clear();
+                            cv.put("percent", percent);
+                            cv.put("cpage",currentPage);
+//                            dbWrite.insert("book",null,cv);
+                            dbWrite.update("book", cv, "_id=?", new String[]{ID+""});
+
+                            refreshView();
+                            dialog.dismiss();
+
+                            //  Log.i("tyq", percent + " ");
+                            }
+
+                        }
+                    }
+
+                    );
+                    dialog.show();
+
+
+                }
+            });
 
 
     }
+
 
     public void refreshView(){
         Cursor cursor = dbRead.query("book",null,null,null,null,null,null);
@@ -105,6 +135,10 @@ public class ViewActivity extends Activity {
         super.onDestroy();
         if(db!=null){
             db.close();
+        }
+        Cursor c = adapter.getCursor();
+        if(c!=null&&!c.isClosed()){
+            c.close();
         }
     }
     public boolean onCreateOptionsMenu(Menu menu) {

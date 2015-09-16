@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ReadProgress</string>
+    <string name="app_name">在读</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="menu_refresh">Refresh</string>

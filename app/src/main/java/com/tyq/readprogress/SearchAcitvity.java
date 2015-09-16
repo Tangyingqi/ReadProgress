@@ -67,9 +67,13 @@ public class SearchAcitvity extends Activity {
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 //点击确定后，添加到数据库。
                                 ContentValues cv = new ContentValues();
+                                cv.clear();
                                 cv.put("title",mBooks.get(mItem).getTitle());
                                 cv.put("page",mBooks.get(mItem).getPage());
+
+
                                 dbWrite.insert("book",null,cv);
+
                                 Toast.makeText(SearchAcitvity.this,"已添加",Toast.LENGTH_SHORT).show();
                             }
                         }).show();
@@ -113,6 +117,7 @@ public class SearchAcitvity extends Activity {
 
 
     }
+
 
 
     public void getRequestData(String str){

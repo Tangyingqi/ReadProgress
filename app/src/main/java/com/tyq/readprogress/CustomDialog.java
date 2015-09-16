@@ -4,6 +4,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -22,11 +24,18 @@ public class CustomDialog extends Dialog {
     }
 
     private void setCustomDialog(){
-        View mView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_custom,null);
+        View mView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_custom, null);
+        super.setContentView(mView);
+
+        Window dialogWindow = this.getWindow();
+        WindowManager.LayoutParams lp = dialogWindow.getAttributes();
+        lp.width = 700;
+        lp.height = 500;
+        lp.alpha = 0.7f;
+        lp.y = 20;
         ed_page = (EditText) findViewById(R.id.et_page_num);
         btn_nag = (Button) findViewById(R.id.nagetiveButton);
         btn_pos = (Button) findViewById(R.id.positiveButton);
-        super.setContentView(mView);
     }
     public  View getEditText(){
         return ed_page;
@@ -40,8 +49,5 @@ public class CustomDialog extends Dialog {
         return btn_nag;
     }
 
-    public void setOnNegativeListener(View.OnClickListener listener){
-        btn_nag.setOnClickListener(listener);
-    }
 
 }

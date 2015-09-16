@@ -16,7 +16,9 @@ public class DB extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE book("+"_id INTEGER PRIMARY KEY AUTOINCREMENT,"+
                 "title TEXT DEFAULT NONE,"+
-                "page TEXT DEFAULT NONE)");
+                "page TEXT DEFAULT NONE,"+
+                "cpage Text DEFAULT '0',"+
+                "percent TEXT DEFAULT '0')");
     }
 
     @Override

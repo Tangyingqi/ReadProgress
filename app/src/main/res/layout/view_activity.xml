@@ -5,7 +5,10 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/view_list">
+        android:id="@+id/view_list"
+        android:footerDividersEnabled="false"
+        >
+
 
     </ListView>
 
