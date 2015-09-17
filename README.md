@@ -5,11 +5,11 @@
 - 个人主页:[www.tangyingqi.com](http://tangyingqi.com)
 - 简介：搜索，连接豆瓣api，然后点击添加到正在读，在正在读页面可以设置读的页数，显示读书进度。
 - 界面截图:   
-- ![search](http://i1.tietuku.com/da0c5e24a7b97b8e.png)   
+  ![search](http://i1.tietuku.com/da0c5e24a7b97b8e.png)   
 -  搜索界面   
--   ![progress](http://i1.tietuku.com/5f547a0263e46e59.png)   
+    ![progress](http://i1.tietuku.com/5f547a0263e46e59.png)   
 -   显示进度界面   
--   ![main](http://i1.tietuku.com/2763e5bfc542f936.png)   
+    ![main](http://i1.tietuku.com/2763e5bfc542f936.png)   
 -    主界面
 
 
