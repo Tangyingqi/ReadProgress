@@ -68,7 +68,6 @@ public class MainActivity extends Activity {
         switch (id){
             case R.id.menu_about:
                 Intent intent = new Intent(MainActivity.this,AboutActivity.class);
-                startActivity(intent);
                 break;
         }
 

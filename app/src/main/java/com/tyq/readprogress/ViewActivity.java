@@ -77,12 +77,6 @@ public class ViewActivity extends Activity {
                    final int ID = c.getInt(c.getColumnIndex("_id"));
 
 
-//                dialog.getNegBtn().setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        dialog.dismiss();
-//                    }
-//                });
 
 
                 dialog.getPosBtn().setOnClickListener(new View.OnClickListener() {

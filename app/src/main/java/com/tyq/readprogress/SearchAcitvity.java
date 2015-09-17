@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -44,7 +45,9 @@ public class SearchAcitvity extends Activity {
     private SearchAdapter mAdapter;
     private DB db;
     private SQLiteDatabase dbWrite;
+    private AddDialog addDialog;
     private int mItem;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,26 +60,49 @@ public class SearchAcitvity extends Activity {
         dbWrite = db.getWritableDatabase();
 
 
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                mItem = i;
+//                new AlertDialog.Builder(SearchAcitvity.this).setTitle("提醒").setMessage("添加到在读").setNegativeButton("取消",null)
+//                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//                                //点击确定后，添加到数据库。
+//                                ContentValues cv = new ContentValues();
+//                                cv.clear();
+//                                cv.put("title",mBooks.get(mItem).getTitle());
+//                                cv.put("page",mBooks.get(mItem).getPage());
+//
+//
+//                                dbWrite.insert("book",null,cv);
+//
+//                                Toast.makeText(SearchAcitvity.this,"已添加",Toast.LENGTH_SHORT).show();
+//                            }
+//                        }).show();
+//            }
+//        });
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 mItem = i;
-                new AlertDialog.Builder(SearchAcitvity.this).setTitle("提醒").setMessage("添加到在读").setNegativeButton("取消",null)
-                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                //点击确定后，添加到数据库。
-                                ContentValues cv = new ContentValues();
-                                cv.clear();
-                                cv.put("title",mBooks.get(mItem).getTitle());
-                                cv.put("page",mBooks.get(mItem).getPage());
+                addDialog = new AddDialog(SearchAcitvity.this, R.style.dialog_style);
+                ImageButton btn_add = (ImageButton) addDialog.getPosBtn();
+                btn_add.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ContentValues cv = new ContentValues();
+                        cv.clear();
+                        cv.put("title", mBooks.get(mItem).getTitle());
+                        cv.put("page", mBooks.get(mItem).getPage());
 
 
-                                dbWrite.insert("book",null,cv);
-
-                                Toast.makeText(SearchAcitvity.this,"已添加",Toast.LENGTH_SHORT).show();
-                            }
-                        }).show();
+                        dbWrite.insert("book", null, cv);
+                        addDialog.dismiss();
+                        Toast.makeText(SearchAcitvity.this, "已添加", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                addDialog.show();
             }
         });
 
@@ -102,24 +128,24 @@ public class SearchAcitvity extends Activity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if(editable.toString().equals("")){
+                if (editable.toString().equals("")) {
                     btn_search.setVisibility(View.GONE);
-                }else {
+                } else {
                     btn_search.setVisibility(View.VISIBLE);
                 }
             }
         });
 
-        mAdapter = new SearchAdapter(mBooks,this);
+        mAdapter = new SearchAdapter(mBooks, this);
         listView.setAdapter(mAdapter);
     }
 
-    public void getRequestData(String str){
+    public void getRequestData(String str) {
         RequestParams params = new RequestParams();
-        params.put("q",str.trim());
+        params.put("q", str.trim());
         BaseAsyncHttp.getReq("/v2/book/search", params, new HttpResponseHandler() {
             @Override
-            public void jsonSuccess(JSONObject resp)  {
+            public void jsonSuccess(JSONObject resp) {
                 mBooks.clear();
 
                 JSONArray jsonbooks = resp.optJSONArray("books");
@@ -129,8 +155,8 @@ public class SearchAcitvity extends Activity {
                         Book mBook = new Book();
                         mBook.setTitle(jsonbooks.optJSONObject(i).optString("title"));
                         String author = "";
-                        for (int j=0;j<jsonbooks.optJSONObject(i).optJSONArray("author").length();j++){
-                            author = author + " " +jsonbooks.optJSONObject(i).optJSONArray("author").optString(j);
+                        for (int j = 0; j < jsonbooks.optJSONObject(i).optJSONArray("author").length(); j++) {
+                            author = author + " " + jsonbooks.optJSONObject(i).optJSONArray("author").optString(j);
                         }
                         mBook.setAuthor(author);
                         mBook.setBitmap(jsonbooks.optJSONObject(i).getString("image"));
@@ -149,7 +175,8 @@ public class SearchAcitvity extends Activity {
             }
         });
     }
-    public void updateToView(){
+
+    public void updateToView() {
         mAdapter.setData(mBooks);
         mAdapter.notifyDataSetChanged();
     }
@@ -164,7 +191,7 @@ public class SearchAcitvity extends Activity {
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
 
         int itemId = item.getItemId();
-        switch (itemId){
+        switch (itemId) {
             case android.R.id.home:
                 finish();
                 break;

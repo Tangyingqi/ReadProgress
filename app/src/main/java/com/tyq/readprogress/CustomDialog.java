@@ -17,7 +17,6 @@ import android.widget.ImageButton;
 public class CustomDialog extends Dialog {
 
     private EditText ed_page;
-   // private Button btn_nag;
     private ImageButton btn_pos;
 
 
@@ -38,7 +37,6 @@ public class CustomDialog extends Dialog {
         lp.height = 600;
 
         ed_page = (EditText) findViewById(R.id.et_page_num);
-        //btn_nag = (Button) findViewById(R.id.nagetiveButton);
         btn_pos = (ImageButton) findViewById(R.id.positiveButton);
     }
     public  View getEditText(){
@@ -49,9 +47,6 @@ public class CustomDialog extends Dialog {
         return btn_pos;
     }
 
-  //  public View getNegBtn(){
-      //  return btn_nag;
-  //  }
 
 
 }
