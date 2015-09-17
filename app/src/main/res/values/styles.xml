@@ -4,9 +4,15 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
     </style>
-    <style name="dialog_style" parent="android:style/Theme.Holo.DialogWhenLarge">
+    <style name="dialog_style" parent="android:style/Theme.Dialog">
 
         <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowBackground">@drawable/custom_dialog</item>
+        <item name="android:backgroundDimEnabled">false</item>
+
 
     </style>
 

@@ -69,21 +69,20 @@ public class ViewActivity extends Activity {
         view_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(final AdapterView<?> adapterView, View view, int i, long l) {
-                dialog = new CustomDialog(ViewActivity.this);
+                dialog = new CustomDialog(ViewActivity.this,R.style.dialog_style);
                  final EditText editText = (EditText) dialog.getEditText();
                  Cursor c = adapter.getCursor();
 
                  final int page = c.getInt(c.getColumnIndex("page"));
                    final int ID = c.getInt(c.getColumnIndex("_id"));
 
-                dialog.setTitle("页码");
 
-                dialog.getNegBtn().setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        dialog.dismiss();
-                    }
-                });
+//                dialog.getNegBtn().setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        dialog.dismiss();
+//                    }
+//                });
 
 
                 dialog.getPosBtn().setOnClickListener(new View.OnClickListener() {

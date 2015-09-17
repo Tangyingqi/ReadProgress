@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/custom_dialog"
-    style="@style/dialog_style"
+    android:layout_height="200dp"
+
     android:orientation="vertical">
 
     <LinearLayout
@@ -14,19 +13,26 @@
 
         <TextView
             android:id="@+id/tv_yidu"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="@color/black"
             android:text="读到 " />
 
         <EditText
             android:id="@+id/et_page_num"
             android:layout_width="100dp"
+            android:background="@color/transparent"
             android:layout_height="wrap_content"
             android:inputType="number" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="20sp"
             android:text="页" />
 
     </LinearLayout>
@@ -36,20 +42,15 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/nagetiveButton"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:background="@color/white"
-            android:layout_height="wrap_content"
-            android:text="取消" />
 
-        <Button
+
+        <ImageButton
             android:id="@+id/positiveButton"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:background="@color/white"
-            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:layout_height="50dp"
+            android:src="@drawable/pos_btn"
             android:text="确定" />
 
     </LinearLayout>
