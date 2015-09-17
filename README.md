@@ -11,7 +11,7 @@
 -   显示进度界面   
     ![main](http://i1.tietuku.com/2763e5bfc542f936.png)   
 -    主界面  
--    ![dialog](http://i1.tietuku.com/75abd6547650ae15.png)    
+    ![dialog](http://i1.tietuku.com/75abd6547650ae15.png)    
 -    对话框
 
 
